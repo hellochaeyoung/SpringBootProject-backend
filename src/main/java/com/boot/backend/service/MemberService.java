@@ -33,4 +33,8 @@ public class MemberService {
             return false;
         }
     }
+
+    public MemberDto login(MemberDto dto) {
+        return dao.login(dto);
+    }
 }

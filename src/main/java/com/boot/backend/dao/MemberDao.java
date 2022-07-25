@@ -15,4 +15,6 @@ public interface MemberDao {
 
     String getId(String id);
 
+    MemberDto login(MemberDto dto);
+
 }
