@@ -18,4 +18,19 @@ public class MemberService {
     public List<MemberDto> allMembers() {
         return dao.allMember();
     }
+
+    public int addMember(MemberDto dto) {
+        return dao.addMember(dto);
+    }
+
+    public boolean getId(MemberDto dto) {
+
+        String result = dao.getId(dto.getId());
+
+        if(result != null) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

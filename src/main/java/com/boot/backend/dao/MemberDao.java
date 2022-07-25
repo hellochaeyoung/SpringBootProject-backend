@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberDao {
 
-    public List<MemberDto> allMember();
+    List<MemberDto> allMember();
 
+    int addMember(MemberDto dto);
 
+    String getId(String id);
 
 }

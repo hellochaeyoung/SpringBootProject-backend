@@ -1,0 +1,18 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.boot.backend.dao.MemberDao">
+  <select id="allMember" resultType="com.boot.backend.dto.MemberDto">
+    select * from member
+  </select>
+
+  <insert id="addMember" parameterType="com.boot.backend.dto.MemberDto">
+    insert into member values (#{id}, #{pwd}, #{name}, #{email}, 3)
+  </insert>
+
+  <select id="getId" parameterType="String" resultType="String">
+    select id from member where id = #{id}
+  </select>
+</mapper>
