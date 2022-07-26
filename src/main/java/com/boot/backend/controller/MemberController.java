@@ -40,7 +40,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String login(MemberDto dto) {
+    public String login(@RequestBody MemberDto dto) {
 
         MemberDto result = service.login(dto);
 
