@@ -7,5 +7,66 @@
   <select id="getBbs" resultType="com.boot.backend.dto.BbsDto">
     select seq, id, ref, step, depth, title, content, wdate, del, readCount
     from bbs
+    order by ref desc, step asc
+  </select>
+
+  <insert id="addBbs" parameterType="com.boot.backend.dto.BbsDto">
+    insert into bbs(id, ref, step, depth, title, content, wdate, del, readCount)
+    values (#{id}, (select ifnull(max(ref)+1, 0) from bbs a), 0, 0, #{title}, #{content}, now(), 0, 0)
+  </insert>
+
+  <select id="getBbsByKeyword" parameterType="com.boot.backend.dto.BbsParam" resultType="com.boot.backend.dto.BbsDto">
+    select seq, id, ref, step, depth, title, content, wdate, del, readCount
+      from bbs
+      <if test="choice != null and choice != '' and search != null and search != ''">
+        <if test="choice == 'title'">
+          where title like concat('%', #{search}, '%')
+        </if>
+        <if test="choice == 'content'">
+          where content like concat('%', #{search}, '%')
+        </if>
+        <if test="choice == 'writer'">
+          where id like concat('%', #{search}, '%')
+        </if>
+      </if>
+     order by ref desc, step asc
+  </select>
+
+  <select id="getBbsSearchPageList" parameterType="com.boot.backend.dto.BbsParam" resultType="com.boot.backend.dto.BbsDto">
+    select seq, id, ref, step, depth, title, content, wdate, del, readCount
+      from
+           (select row_number() over (order by ref desc, step asc) as rnum, seq, id, ref, step, depth, title, content, wdate, del, readCount
+              from bbs
+              <if test="choice != null and choice != '' and search != null and search != ''">
+                <if test="choice == 'title'">
+                  where title like concat('%', #{search}, '%')
+                </if>
+                <if test="choice == 'content'">
+                  where content like concat('%', #{search}, '%')
+                </if>
+                <if test="choice == 'writer'">
+                  where id like concat('%', #{search}, '%')
+                </if>
+              </if>
+              order by ref desc, step asc) as a
+     where rnum between ${start} and ${end}
+  </select>
+
+
+  <!--글의 총수-->
+  <select id="getBbsCount" parameterType="com.boot.backend.dto.BbsParam" resultType="Integer">
+    select ifnull(count(*), 0)
+      from bbs
+    <if test="choice != null and choice != '' and search != null and search != ''">
+      <if test="choice == 'title'">
+        where title like concat('%', #{search}, '%')
+      </if>
+      <if test="choice == 'content'">
+        where content like concat('%', #{search}, '%')
+      </if>
+      <if test="choice == 'writer'">
+        where id like concat('%', #{search}, '%')
+      </if>
+    </if>
   </select>
 </mapper>
