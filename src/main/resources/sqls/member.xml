@@ -19,7 +19,7 @@
   <select id="login" parameterType="com.boot.backend.dto.MemberDto" resultType="com.boot.backend.dto.MemberDto">
     select id, pwd, name, email, auth
     from member
-    where id = #{ld}
+    where id = #{id}
       and pwd = #{pwd}
   </select>
 </mapper>
