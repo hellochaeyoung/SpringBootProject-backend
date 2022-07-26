@@ -19,6 +19,11 @@ public class MemberDto {
         this.auth = auth;
     }
 
+    public MemberDto(String id, String pwd) {
+        this.id = id;
+        this.pwd = pwd;
+    }
+
     public String getId() {
         return id;
     }
