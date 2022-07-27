@@ -40,15 +40,15 @@ public class MemberController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String login(@RequestBody MemberDto dto) {
+    public MemberDto login(@RequestBody MemberDto dto) {
 
         MemberDto result = service.login(dto);
 
         if(result == null) {
-            return "FAIL";
-        }else {
-            return "SUCCESS";
+            return null;
         }
+
+        return result;
     }
 
 }
