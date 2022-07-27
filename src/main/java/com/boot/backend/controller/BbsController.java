@@ -28,8 +28,8 @@ public class BbsController {
 
     }
 
-    @RequestMapping(value = "addBbs", method = RequestMethod.GET)
-    public String addBbs(BbsDto dto) {
+    @RequestMapping(value = "addBbs", method = RequestMethod.POST)
+    public String addBbs(@RequestBody BbsDto dto) {
         boolean b = service.addBbs(dto);
 
         if(b) return "OK";
