@@ -4,10 +4,10 @@
 
 
 <mapper namespace="com.boot.backend.dao.BbsDao">
-  <select id="getBbs" resultType="com.boot.backend.dto.BbsDto">
-    select seq, id, ref, step, depth, title, content, wdate, del, readCount
-    from bbs
-    order by ref desc, step asc
+  <select id="getBbs" parameterType="Integer" resultType="com.boot.backend.dto.BbsDto">
+    select id, title, content, wdate
+      from bbs
+     where seq = #{seq}
   </select>
 
   <insert id="addBbs" parameterType="com.boot.backend.dto.BbsDto">
@@ -69,4 +69,6 @@
       </if>
     </if>
   </select>
+
+
 </mapper>

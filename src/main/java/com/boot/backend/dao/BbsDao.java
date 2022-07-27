@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BbsDao {
 
-    List<BbsDto> getBbs();
+    BbsDto getBbs(int seq);
 
     int addBbs(BbsDto dto);
 

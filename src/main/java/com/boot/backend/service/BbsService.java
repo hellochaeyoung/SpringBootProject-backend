@@ -15,8 +15,8 @@ public class BbsService {
     @Autowired
     BbsDao dao;
 
-    public List<BbsDto> getBbs() {
-        return dao.getBbs();
+    public BbsDto getBbs(int seq) {
+        return dao.getBbs(seq);
     }
 
     public boolean addBbs(BbsDto dto) {
