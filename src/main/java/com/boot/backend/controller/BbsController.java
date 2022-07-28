@@ -23,7 +23,8 @@ public class BbsController {
     Logger logger = LoggerFactory.getLogger(BbsController.class);
 
     @RequestMapping(value = "getBbs", method = RequestMethod.POST)
-    public BbsDto getBbs(@RequestBody int seq) {
+    public BbsDto getBbs(int seq) {
+        System.out.println("BbsController getBbs()");
         return service.getBbs(seq);
 
     }
