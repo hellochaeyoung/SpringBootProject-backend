@@ -4,7 +4,9 @@ import com.boot.backend.dto.BbsDto;
 import com.boot.backend.dto.BbsParam;
 import com.boot.backend.service.BbsService;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,27 @@ public class BbsController {
         param.setEnd(end);
 
         return service.getBbsSearchPageList(param);
+    }
+
+    @RequestMapping(value = "getBbsReactList", method = RequestMethod.GET)
+    public Map<String, Object> getBbsReactList(BbsParam param) {
+        System.out.println("BbsController getBbsReactList " + new Date());
+
+        int sn = param.getPageNumber();
+        int start = sn * 10 + 1;
+        int end = (sn + 1) * 10;
+
+        param.setStart(start);
+        param.setEnd(end);
+
+        List<BbsDto> list = service.getBbsSearchPageList(param);
+        int count = service.getBbsCount(param);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("bbslist", list);
+        map.put("cnt", count);
+
+        return map;
     }
 
     @RequestMapping(value = "getBbsCount", method = RequestMethod.GET)
