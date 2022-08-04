@@ -37,4 +37,6 @@ public class BbsService {
     }
 
     public int updateBbs(BbsDto dto) { return dao.updateBbs(dto); }
+
+    public int deleteBbs(int seq) { return dao.deleteBbs(seq); }
 }

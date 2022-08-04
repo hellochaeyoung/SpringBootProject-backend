@@ -96,4 +96,10 @@ public class BbsController {
         System.out.println("BbsController updateBbs()");
         return service.updateBbs(dto);
     }
+
+    @RequestMapping(value = "deleteBbs", method = RequestMethod.POST)
+    public int deleteBbs(int seq) {
+        System.out.println("BbsController deleteBbs()");
+        return service.deleteBbs(seq);
+    }
 }

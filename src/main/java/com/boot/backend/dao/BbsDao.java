@@ -21,4 +21,6 @@ public interface BbsDao {
     int getBbsCount(BbsParam param);
 
     int updateBbs(BbsDto dto);
+
+    int deleteBbs(int seq);
 }

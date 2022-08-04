@@ -76,5 +76,9 @@
      where seq = #{seq}
   </update>
 
+  <delete id="deleteBbs" parameterType="Integer">
+    delete from bbs where seq = #{seq}
+  </delete>
+
 
 </mapper>
