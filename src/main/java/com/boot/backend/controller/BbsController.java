@@ -3,6 +3,7 @@ package com.boot.backend.controller;
 import com.boot.backend.dto.BbsDto;
 import com.boot.backend.dto.BbsParam;
 import com.boot.backend.service.BbsService;
+import com.boot.backend.service.CommentService;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,9 @@ public class BbsController {
 
     @Autowired
     BbsService service;
+
+    @Autowired
+    CommentService commentService;
 
     Logger logger = LoggerFactory.getLogger(BbsController.class);
 
@@ -100,6 +104,10 @@ public class BbsController {
     @RequestMapping(value = "deleteBbs", method = RequestMethod.POST)
     public int deleteBbs(int seq) {
         System.out.println("BbsController deleteBbs()");
+
+        // 게시물 댓글 삭제
+        commentService.deleteComments(seq);
+
         return service.deleteBbs(seq);
     }
 }
