@@ -70,5 +70,11 @@
     </if>
   </select>
 
+  <update id="updateBbs" parameterType="com.boot.backend.dto.BbsDto">
+    update bbs
+       set title = #{title}, content = #{content}, wdate = now()
+     where seq = #{seq}
+  </update>
+
 
 </mapper>

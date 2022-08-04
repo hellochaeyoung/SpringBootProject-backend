@@ -19,4 +19,6 @@ public interface BbsDao {
     List<BbsDto> getBbsSearchPageList(BbsParam param);
 
     int getBbsCount(BbsParam param);
+
+    int updateBbs(BbsDto dto);
 }

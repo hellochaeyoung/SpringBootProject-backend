@@ -35,4 +35,6 @@ public class BbsService {
     public int getBbsCount(BbsParam param) {
         return dao.getBbsCount(param);
     }
+
+    public int updateBbs(BbsDto dto) { return dao.updateBbs(dto); }
 }

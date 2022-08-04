@@ -33,6 +33,9 @@ public class BbsController {
 
     @RequestMapping(value = "addBbs", method = RequestMethod.POST)
     public String addBbs(@RequestBody BbsDto dto) {
+
+        System.out.println("BbsController addBbs() " + new Date());
+
         boolean b = service.addBbs(dto);
 
         if(b) return "OK";
@@ -88,4 +91,9 @@ public class BbsController {
         return service.getBbsCount(param);
     }
 
+    @RequestMapping(value = "updateBbs", method = RequestMethod.POST)
+    public int updateBbs(@RequestBody BbsDto dto) {
+        System.out.println("BbsController updateBbs()");
+        return service.updateBbs(dto);
+    }
 }
