@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.boot.backend.dao.BbsDao">
+  <insert id="addComment" parameterType="com.boot.backend.dto.CommentDto">
+    insert into comment(bbs, id, content, wdate) values (#{bbs}, #{id}, #{content}, now())
+  </insert>
+
+  <select id="getCommentList" parameterType="Integer">
+    select seq, bbs, id, content, wdate
+      from comment
+     where bbs = #{bbs}
+  </select>
+
+</mapper>
