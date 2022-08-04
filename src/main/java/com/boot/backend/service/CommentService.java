@@ -19,4 +19,8 @@ public class CommentService {
     public List<CommentDto> getCommentList(int bbs) {
         return dao.getCommentList(bbs);
     }
+
+    public int deleteComments(int bbs) {
+        return dao.deleteComments(bbs);
+    }
 }

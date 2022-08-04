@@ -12,4 +12,6 @@ public interface CommentDao {
     int addComment(CommentDto dto);
 
     List<CommentDto> getCommentList(int bbs);
+
+    int deleteComments(int bbs);
 }
