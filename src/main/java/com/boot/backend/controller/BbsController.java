@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,7 +29,7 @@ public class BbsController {
 
     @RequestMapping(value = "getBbs", method = RequestMethod.POST)
     public BbsDto getBbs(int seq) {
-        System.out.println("BbsController getBbs()");
+        logger.info("BbsController getBbs()");
         return service.getBbs(seq);
 
     }
@@ -38,7 +37,7 @@ public class BbsController {
     @RequestMapping(value = "addBbs", method = RequestMethod.POST)
     public String addBbs(@RequestBody BbsDto dto) {
 
-        System.out.println("BbsController addBbs() " + new Date());
+        logger.info("BbsController addBbs() " + new Date());
 
         boolean b = service.addBbs(dto);
 
@@ -59,6 +58,8 @@ public class BbsController {
     @RequestMapping(value = "getBbsSearchPageList", method = RequestMethod.GET)
     public List<BbsDto> getBbsSearchPageList(BbsParam param) {
 
+        logger.info("BbsController getBbsSearchPageList " + new Date());
+
         int sn = param.getPageNumber();
         int start = sn * 10 + 1;
         int end = (sn + 1) * 10;
@@ -71,7 +72,7 @@ public class BbsController {
 
     @RequestMapping(value = "getBbsReactList", method = RequestMethod.GET)
     public Map<String, Object> getBbsReactList(BbsParam param) {
-        System.out.println("BbsController getBbsReactList " + new Date());
+        logger.info("BbsController getBbsReactList " + new Date());
 
         int sn = param.getPageNumber();
         int start = sn * 10 + 1;
@@ -92,18 +93,22 @@ public class BbsController {
 
     @RequestMapping(value = "getBbsCount", method = RequestMethod.GET)
     public int getBbsCount(BbsParam param) {
+
+        logger.info("BbsController getBbsCount() " + new Date());
+
         return service.getBbsCount(param);
     }
 
     @RequestMapping(value = "updateBbs", method = RequestMethod.POST)
     public int updateBbs(@RequestBody BbsDto dto) {
-        System.out.println("BbsController updateBbs()");
+        logger.info("BbsController updateBbs()");
+
         return service.updateBbs(dto);
     }
 
     @RequestMapping(value = "deleteBbs", method = RequestMethod.POST)
     public int deleteBbs(int seq) {
-        System.out.println("BbsController deleteBbs()");
+        logger.info("BbsController deleteBbs()");
 
         // 게시물 댓글 삭제
         commentService.deleteComments(seq);
