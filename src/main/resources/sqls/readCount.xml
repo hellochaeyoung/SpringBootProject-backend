@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.boot.backend.dao.ReadCountDao">
+  <select id="getReadCount" parameterType="com.boot.backend.dto.ReadCountDto" resultType="com.boot.backend.dto.ReadCountDto">
+    select seq, bbs, id
+      from readCount
+     where id = #{id} and bbs = #{bbs}
+  </select>
+
+  <insert id="addReadCount" parameterType="com.boot.backend.dto.ReadCountDto">
+    insert into readCount(bbs, id) values (#{bbs}, #{id})
+  </insert>
+
+  <delete id="deleteReadCount" parameterType="Integer">
+    delete from readCount where bbs = #{bbs}
+  </delete>
+</mapper>
