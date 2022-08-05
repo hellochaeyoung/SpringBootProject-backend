@@ -1,5 +1,6 @@
 package com.boot.backend.controller;
 
+import com.boot.backend.annotation.LoginCheck;
 import com.boot.backend.dto.CommentDto;
 import com.boot.backend.service.CommentService;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class CommentController {
     Logger logger = LoggerFactory.getLogger(CommentController.class);
 
     @RequestMapping(value = "addComment", method = RequestMethod.POST)
+    @LoginCheck
     public int addComment(@RequestBody CommentDto dto) {
         logger.info("CommentController addComment " + new Date());
 
