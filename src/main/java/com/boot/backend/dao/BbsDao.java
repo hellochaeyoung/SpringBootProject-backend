@@ -23,4 +23,6 @@ public interface BbsDao {
     int updateBbs(BbsDto dto);
 
     int deleteBbs(int seq);
+
+    int updateBbsReadCount(int seq);
 }

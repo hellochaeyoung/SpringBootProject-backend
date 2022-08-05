@@ -1,9 +1,12 @@
 package com.boot.backend.controller;
 
+import com.boot.backend.annotation.LoginCheck;
 import com.boot.backend.dto.BbsDto;
 import com.boot.backend.dto.BbsParam;
+import com.boot.backend.dto.ReadCountDto;
 import com.boot.backend.service.BbsService;
 import com.boot.backend.service.CommentService;
+import com.boot.backend.service.ReadCountService;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +28,9 @@ public class BbsController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    ReadCountService readCountService;
+
     Logger logger = LoggerFactory.getLogger(BbsController.class);
 
     @RequestMapping(value = "getBbs", method = RequestMethod.POST)
@@ -35,6 +41,7 @@ public class BbsController {
     }
 
     @RequestMapping(value = "addBbs", method = RequestMethod.POST)
+    @LoginCheck
     public String addBbs(@RequestBody BbsDto dto) {
 
         logger.info("BbsController addBbs() " + new Date());
@@ -100,6 +107,7 @@ public class BbsController {
     }
 
     @RequestMapping(value = "updateBbs", method = RequestMethod.POST)
+    @LoginCheck
     public int updateBbs(@RequestBody BbsDto dto) {
         logger.info("BbsController updateBbs()");
 
@@ -107,12 +115,37 @@ public class BbsController {
     }
 
     @RequestMapping(value = "deleteBbs", method = RequestMethod.POST)
+    @LoginCheck
     public int deleteBbs(int seq) {
         logger.info("BbsController deleteBbs()");
 
         // 게시물 댓글 삭제
         commentService.deleteComments(seq);
 
+        // 조회수 삭제
+        readCountService.deleteReadCount(seq);
+
         return service.deleteBbs(seq);
+    }
+
+    @RequestMapping(value = "checkReadBbs", method = RequestMethod.POST)
+    public int checkReadBbs(@RequestBody ReadCountDto dto) {
+
+        //String encounter = "NONE";
+        int totalReadCount = service.getBbs(dto.getBbs()).getReadCount();
+
+        String id = dto.getId();
+        if( id != null) { // 로그인 했을 때만 처리
+            ReadCountDto readCountDto = readCountService.getReadCount(dto);
+
+            if(readCountDto == null) {
+                System.out.println("readCountDto is null");
+                readCountService.addReadCount(dto);
+                service.updateBbsReadCount(dto.getBbs());
+                totalReadCount++;
+            }
+        }
+
+        return totalReadCount;
     }
 }

@@ -5,7 +5,7 @@
 
 <mapper namespace="com.boot.backend.dao.BbsDao">
   <select id="getBbs" parameterType="Integer" resultType="com.boot.backend.dto.BbsDto">
-    select id, title, content, wdate
+    select id, title, content, wdate, readCount
       from bbs
      where seq = #{seq}
   </select>
@@ -79,6 +79,12 @@
   <delete id="deleteBbs" parameterType="Integer">
     delete from bbs where seq = #{seq}
   </delete>
+
+  <update id="updateBbsReadCount" parameterType="Integer">
+    update bbs
+       set readCount = readCount + 1
+     where seq = #{seq}
+  </update>
 
 
 </mapper>
