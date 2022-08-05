@@ -50,17 +50,18 @@ public class MemberController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public MemberDto login(@RequestBody MemberDto dto) {
+    public String login(@RequestBody MemberDto dto) {
 
         logger.info("MemberController login() " + new Date());
 
         MemberDto result = service.login(dto);
 
         if(result == null) {
-            return null;
+            System.out.println("로그인 실패");
+            return "FAIL";
         }
 
-        return result;
+        return result.getId();
     }
 
 }

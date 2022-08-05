@@ -3,6 +3,8 @@ package com.boot.backend.service;
 import com.boot.backend.dao.MemberDao;
 import com.boot.backend.dto.MemberDto;
 import java.util.List;
+import javax.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,10 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
     @Autowired
     MemberDao dao;
+
+    private static final String LOGIN = "LOGIN";
+    private final HttpSession session;
 
     public List<MemberDto> allMembers() {
         return dao.allMember();
@@ -35,6 +41,17 @@ public class MemberService {
     }
 
     public MemberDto login(MemberDto dto) {
-        return dao.login(dto);
+
+        MemberDto loginMember = dao.login(dto);
+
+        if(loginMember != null) {
+            session.setAttribute(LOGIN, dto);
+        }
+
+        return loginMember;
+    }
+
+    public MemberDto getCurrentMember() {
+        return (MemberDto) session.getAttribute(LOGIN);
     }
 }
