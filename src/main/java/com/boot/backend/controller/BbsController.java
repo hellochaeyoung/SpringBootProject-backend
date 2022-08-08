@@ -139,7 +139,6 @@ public class BbsController {
             ReadCountDto readCountDto = readCountService.getReadCount(dto);
 
             if(readCountDto == null) {
-                System.out.println("readCountDto is null");
                 readCountService.addReadCount(dto);
                 service.updateBbsReadCount(dto.getBbs());
                 totalReadCount++;
