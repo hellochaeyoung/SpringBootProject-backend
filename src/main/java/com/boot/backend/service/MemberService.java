@@ -54,4 +54,8 @@ public class MemberService {
     public MemberDto getCurrentMember() {
         return (MemberDto) session.getAttribute(LOGIN);
     }
+
+    public void logout() {
+        session.removeAttribute(LOGIN);
+    }
 }

@@ -21,16 +21,9 @@ public class MemberController {
     Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public int register(@RequestBody Map<String, String> map) {
+    public int register(@RequestBody MemberDto dto) {
 
         logger.info("MemberController register() " + new Date());
-
-        String id = map.get("id");
-        String pwd = map.get("pwd");
-        String name = map.get("name");
-        String email = map.get("email");
-
-        MemberDto dto = new MemberDto(id, pwd, name, email, 3);
 
         return service.addMember(dto);
     }
@@ -62,6 +55,16 @@ public class MemberController {
         }
 
         return result.getId();
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public int logout() {
+
+        logger.info("MemberController logout() " + new Date());
+
+        service.logout();
+
+        return 1;
     }
 
 }
