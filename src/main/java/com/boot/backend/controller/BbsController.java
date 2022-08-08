@@ -131,7 +131,6 @@ public class BbsController {
     @RequestMapping(value = "checkReadBbs", method = RequestMethod.POST)
     public int checkReadBbs(@RequestBody ReadCountDto dto) {
 
-        //String encounter = "NONE";
         int totalReadCount = service.getBbs(dto.getBbs()).getReadCount();
 
         String id = dto.getId();
